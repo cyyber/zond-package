@@ -118,6 +118,33 @@ def launch_participant_network(
             network_params.devnet_repo,
         )
 
+    remote_signer_context = None
+    # Launch one clef agent if enabled in any of the participants
+    for index, participant in enumerate(args_with_right_defaults.participants):
+        if participant.use_remote_signer and participant.remote_signer_type == "clef":
+            node_selectors = input_parser.get_client_node_selectors(
+                participant.node_selectors,
+                global_node_selectors,
+            )
+            remote_signer_context = remote_signer.launch(
+                plan=plan,
+                service_name="signer-{0}".format(participant.remote_signer_type),
+                remote_signer_type=participant.remote_signer_type,
+                image=participant.remote_signer_image,
+                full_name="{0}-remote_signer".format(participant.remote_signer_type),
+                vc_type=participant.vc_type,
+                el_type=participant.el_type,
+                node_keystore_files=None,
+                participant=participant,
+                global_tolerations=global_tolerations,
+                node_selectors=node_selectors,
+                port_publisher=args_with_right_defaults.port_publisher,
+                remote_signer_index=0,
+                network_id=network_id,
+                global_log_level=args_with_right_defaults.global_log_level,
+            )
+            break
+
     # Launch all execution layer clients
     all_el_contexts = el_client_launcher.launch(
         plan,
@@ -134,6 +161,7 @@ def launch_participant_network(
         args_with_right_defaults.port_publisher,
         args_with_right_defaults.mev_type,
         args_with_right_defaults.mev_params,
+        remote_signer_context=remote_signer_context,
     )
 
     # Launch all consensus layer clients
@@ -316,23 +344,23 @@ def launch_participant_network(
             )
         )
 
-        if participant.use_remote_signer:
+        if participant.use_remote_signer and participant.remote_signer_type == "qrysm":
             remote_signer_context = remote_signer.launch(
                 plan=plan,
-                launcher=remote_signer.new_remote_signer_launcher(
-                    el_cl_genesis_data=el_cl_data
-                ),
                 service_name="signer-{0}".format(full_name),
                 remote_signer_type=remote_signer_type,
                 image=participant.remote_signer_image,
                 full_name="{0}-remote_signer".format(full_name),
                 vc_type=vc_type,
+                el_type=el_type,
                 node_keystore_files=vc_keystores,
                 participant=participant,
                 global_tolerations=global_tolerations,
                 node_selectors=node_selectors,
                 port_publisher=args_with_right_defaults.port_publisher,
                 remote_signer_index=current_vc_index,
+                network_id=network_id,
+                global_log_level=args_with_right_defaults.global_log_level,
             )
 
         all_remote_signer_contexts.append(remote_signer_context)
