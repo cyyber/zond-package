@@ -19,7 +19,7 @@ bigtable:
   emulator: true
   emulatorHost: {{.LBTHost}}
   emulatorPort: {{.LBTPort}}
-eth1GzondEndpoint: '{{.ELNodeEndpoint}}'
+elNodeEndpoint: '{{.ELNodeEndpoint}}'
 redisCacheEndpoint: '{{.RedisEndpoint}}'
 tieredCacheProvider: 'redis'
 frontend:
@@ -49,4 +49,4 @@ indexer:
     host: '{{.CLNodeHost}}'
     port: '{{.CLNodePort}}'
     type: '{{.CLNodeType}}'
-  eth1DepositContractFirstBlock: 0
+  depositContractFirstBlock: 0
