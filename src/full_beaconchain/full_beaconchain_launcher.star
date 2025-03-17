@@ -244,7 +244,7 @@ def launch_full_beacon(
                 "-balances.enabled",
             ],
             min_cpu=ELINDEXER_MIN_CPU,
-            max_cpu=EL1INDEXER_MAX_CPU,
+            max_cpu=ELINDEXER_MAX_CPU,
             min_memory=ELINDEXER_MIN_MEMORY,
             max_memory=ELINDEXER_MAX_MEMORY,
             node_selectors=node_selectors,
