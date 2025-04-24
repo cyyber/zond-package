@@ -195,7 +195,7 @@ def get_config_backend(
             "ETHEREUM_JSONRPC_HTTP_URL": el_client_rpc_url,
             "ETHEREUM_JSONRPC_TRACE_URL": el_client_rpc_url,
             "DATABASE_URL": database_url,
-            "COIN": "ETH",
+            "COIN": "ZND",
             "MICROSERVICE_SC_VERIFIER_ENABLED": "true",
             "MICROSERVICE_SC_VERIFIER_URL": verif_url,
             "MICROSERVICE_SC_VERIFIER_TYPE": "sc_verifier",
