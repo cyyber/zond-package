@@ -99,13 +99,13 @@ def label_maker(
     return labels
 
 
-def get_devnet_enodes(plan, filename):
-    enode_list = plan.run_python(
-        description="Getting devnet enodes",
+def get_devnet_qnodes(plan, filename):
+    qnode_list = plan.run_python(
+        description="Getting devnet qnodes",
         files={constants.GENESIS_DATA_MOUNTPOINT_ON_CLIENTS: filename},
         wait=None,
         run="""
-with open("/network-configs/enodes.txt") as bootnode_file:
+with open("/network-configs/qnodes.txt") as bootnode_file:
     bootnodes = []
     for line in bootnode_file:
         line = line.strip()
@@ -113,12 +113,12 @@ with open("/network-configs/enodes.txt") as bootnode_file:
 print(",".join(bootnodes), end="")
             """,
     )
-    return enode_list.output
+    return qnode_list.output
 
 
-def get_devnet_enrs_list(plan, filename):
-    enr_list = plan.run_python(
-        description="Creating devnet enrs list",
+def get_devnet_qnrs_list(plan, filename):
+    qnr_list = plan.run_python(
+        description="Creating devnet qnrs list",
         files={constants.GENESIS_DATA_MOUNTPOINT_ON_CLIENTS: filename},
         wait=None,
         run="""
@@ -130,7 +130,7 @@ with open("/network-configs/bootstrap_nodes.txt") as bootnode_file:
 print(",".join(bootnodes), end="")
             """,
     )
-    return enr_list.output
+    return qnr_list.output
 
 
 def read_genesis_timestamp_from_config(plan, filename):
