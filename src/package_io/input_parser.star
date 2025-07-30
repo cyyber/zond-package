@@ -408,7 +408,7 @@ def input_parser(plan, input_args):
         checkpoint_sync_enabled=result["checkpoint_sync_enabled"],
         checkpoint_sync_url=result["checkpoint_sync_url"],
         zond_genesis_generator_params=struct(
-            image=result["zond_genesis_generator_params"]["image"],
+            image=result["qrl_genesis_generator_params"]["image"],
         ),
         port_publisher=struct(
             nat_exit_ip=result["port_publisher"]["nat_exit_ip"],
@@ -740,7 +740,7 @@ def default_input_args(input_args):
         "keymanager_enabled": False,
         "checkpoint_sync_enabled": False,
         "checkpoint_sync_url": "",
-        "zond_genesis_generator_params": get_default_zond_genesis_generator_params(),
+        "qrl_genesis_generator_params": get_default_qrl_genesis_generator_params(),
         "port_publisher": {
             "nat_exit_ip": constants.PRIVATE_IP_ADDRESS_PLACEHOLDER,
             "public_port_start": None,
@@ -753,7 +753,7 @@ def default_network_params():
     return {
         "network": "kurtosis",
         "network_id": "3151908",
-        "deposit_contract_address": "Z4242424242424242424242424242424242424242",
+        "deposit_contract_address": "Q4242424242424242424242424242424242424242",
         "seconds_per_slot": 60,
         "num_validator_keys_per_node": 64,
         "preregistered_validator_keys_mnemonic": constants.DEFAULT_MNEMONIC,
@@ -782,7 +782,7 @@ def default_minimal_network_params():
     return {
         "network": "kurtosis",
         "network_id": "3151908",
-        "deposit_contract_address": "Z4242424242424242424242424242424242424242",
+        "deposit_contract_address": "Q4242424242424242424242424242424242424242",
         "seconds_per_slot": 15,
         "num_validator_keys_per_node": 64,
         "preregistered_validator_keys_mnemonic": constants.DEFAULT_MNEMONIC,
@@ -1031,7 +1031,7 @@ def get_default_xatu_sentry_params():
 
 def get_default_tx_spammer_params():
     return {
-        "image": "theqrl/zond-tx-spammer:latest",
+        "image": "theqrl/qrl-tx-spammer:latest",
         "scenario": "eoatx",
         "throughput": 1000,
         "max_pending": 1000,
@@ -1197,7 +1197,7 @@ def docker_cache_image_override(plan, result):
         "prometheus_params.image",
         "grafana_params.image",
         "tx_spammer_params.image",
-        "zond_genesis_generator_params.image",
+        "qrl_genesis_generator_params.image",
     ]
 
     if result["docker_cache_params"]["url"] == "":
@@ -1271,7 +1271,7 @@ def docker_cache_image_override(plan, result):
             )
 
 
-def get_default_zond_genesis_generator_params():
+def get_default_qrl_genesis_generator_params():
     return {
-        "image": constants.DEFAULT_ZOND_GENESIS_GENERATOR_IMAGE,
+        "image": constants.DEFAULT_QRL_GENESIS_GENERATOR_IMAGE,
     }

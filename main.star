@@ -68,10 +68,10 @@ MEV_BOOST_SHOULD_CHECK_RELAY = True
 
 
 def run(plan, args={}):
-    """Launches an arbitrarily complex zond testnet based on the arguments provided
+    """Launches an arbitrarily complex qrl testnet based on the arguments provided
 
     Args:
-        args: A YAML or JSON argument to configure the network; example https://github.com/theQRL/zond-package/blob/main/network_params.yaml
+        args: A YAML or JSON argument to configure the network; example https://github.com/theQRL/qrl-package/blob/main/network_params.yaml
     """
 
     args_with_right_defaults = input_parser.input_parser(plan, args)
@@ -668,7 +668,7 @@ def run(plan, args={}):
         first_cl_client = all_cl_contexts[0]
         first_client_beacon_name = first_cl_client.beacon_service_name
         epoch_recipe = GetHttpRequestRecipe(
-            endpoint="/zond/v1/beacon/states/head/finality_checkpoints",
+            endpoint="/qrl/v1/beacon/states/head/finality_checkpoints",
             port_id=HTTP_PORT_ID_FOR_FACT,
             extract={"finalized_epoch": ".data.finalized.epoch"},
         )

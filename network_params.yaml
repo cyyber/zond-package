@@ -67,7 +67,7 @@ participants:
 network_params:
   network: kurtosis
   network_id: "3151908"
-  deposit_contract_address: "Z4242424242424242424242424242424242424242"
+  deposit_contract_address: ""
   seconds_per_slot: 60
   num_validator_keys_per_node: 64
   preregistered_validator_keys_mnemonic:
@@ -160,8 +160,8 @@ global_node_selectors: {}
 keymanager_enabled: false
 checkpoint_sync_enabled: false
 checkpoint_sync_url: ""
-zond_genesis_generator_params:
-  image: qrledger/qrysm:zond-genesis-generator-latest
+qrl_genesis_generator_params:
+  image: qrledger/qrysm:qrl-genesis-generator-latest
 port_publisher:
   nat_exit_ip: KURTOSIS_IP_ADDR_PLACEHOLDER
   el:

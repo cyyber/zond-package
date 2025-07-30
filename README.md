@@ -1,13 +1,13 @@
-# Zond Package
+# QRL Package
 
-This is a [Kurtosis][kurtosis-repo] package that will spin up a private Zond testnet over Docker or Kubernetes with multi-client support, Flashbot's `mev-boost` infrastructure for PBS-related testing/validation, and other useful network tools (transaction spammer, monitoring tools, etc). Kurtosis packages are entirely reproducible and composable, so this will work the same way over Docker or Kubernetes, in the cloud or locally on your machine.
+This is a [Kurtosis][kurtosis-repo] package that will spin up a private QRL testnet over Docker or Kubernetes with multi-client support, Flashbot's `mev-boost` infrastructure for PBS-related testing/validation, and other useful network tools (transaction spammer, monitoring tools, etc). Kurtosis packages are entirely reproducible and composable, so this will work the same way over Docker or Kubernetes, in the cloud or locally on your machine.
 
-You now have the ability to spin up a private Zond testnet or public devnet/testnet with a single command. This package is designed to be used for testing, validation, and development of Zond clients, and is not intended for production use. For more details check network_params.network in the [configuration section](./README.md#configuration).
+You now have the ability to spin up a private QRL testnet or public devnet/testnet with a single command. This package is designed to be used for testing, validation, and development of QRL clients, and is not intended for production use. For more details check network_params.network in the [configuration section](./README.md#configuration).
 
 Specifically, this [package][package-reference] will:
 
-1. Generate Execution Layer (EL) & Consensus Layer (CL) genesis information using [the Zond genesis generator](https://github.com/theQRL/zond-genesis-generator).
-2. Configure & bootstrap a network of Zond nodes of *n* size using the genesis data generated above
+1. Generate Execution Layer (EL) & Consensus Layer (CL) genesis information using [the QRL genesis generator](https://github.com/theQRL/qrl-genesis-generator).
+2. Configure & bootstrap a network of QRL nodes of *n* size using the genesis data generated above
 3. Spin up a [transaction spammer](https://github.com/MariusVanDerWijden/tx-fuzz) to send fake transactions to the network
 4. Spin up and connect a [testnet verifier](https://github.com/ethereum/merge-testnet-verifier)
 5. Spin up a Grafana and Prometheus instance to observe the network
@@ -29,7 +29,7 @@ Optional features (enabled via flags or parameter files at runtime):
 3. Run the package with default configurations from the command line:
 
    ```bash
-   kurtosis run --enclave my-testnet github.com/theQRL/zond-package
+   kurtosis run --enclave my-testnet github.com/theQRL/qrl-package
    ```
 
 #### Run with your own configuration
@@ -37,7 +37,7 @@ Optional features (enabled via flags or parameter files at runtime):
 Kurtosis packages are parameterizable, meaning you can customize your network and its behavior to suit your needs by storing parameters in a file that you can pass in at runtime like so:
 
 ```bash
-kurtosis run --enclave my-testnet github.com/theQRL/zond-package --args-file network_params.yaml
+kurtosis run --enclave my-testnet github.com/theQRL/qrl-package --args-file network_params.yaml
 ```
 
 Where `network_params.yaml` contains the parameters for your network in your home directory.
@@ -167,7 +167,7 @@ participants:
     el_extra_env_vars: {}
 
     # A list of optional extra labels the el container should spin up with
-    # Example; el_extra_labels: {"zond-package.partition": "1"}
+    # Example; el_extra_labels: {"qrl-package.partition": "1"}
     el_extra_labels: {}
 
     # A list of optional extra params that will be passed to the EL client container for modifying its behaviour
@@ -219,7 +219,7 @@ participants:
     cl_extra_env_vars: {}
 
     # A list of optional extra labels that will be passed to the CL client Beacon container.
-    # Example; cl_extra_labels: {"zond-package.partition": "1"}
+    # Example; cl_extra_labels: {"qrl-package.partition": "1"}
     cl_extra_labels: {}
 
     # A list of optional extra params that will be passed to the CL client Beacon container for modifying its behaviour
@@ -284,7 +284,7 @@ participants:
     vc_extra_env_vars: {}
 
     # A list of optional extra labels that will be passed to the validator client validator container.
-    # Example; vc_extra_labels: {"zond-package.partition": "1"}
+    # Example; vc_extra_labels: {"qrl-package.partition": "1"}
     vc_extra_labels: {}
 
     # A list of optional extra params that will be passed to the validator client container for modifying its behaviour
@@ -334,7 +334,7 @@ participants:
     remote_signer_extra_env_vars: {}
 
     # A list of optional extra labels that will be passed to the remote signer container.
-    # Example; remote_signer_extra_labels: {"zond-package.partition": "1"}
+    # Example; remote_signer_extra_labels: {"qrl-package.partition": "1"}
     remote_signer_extra_labels: {}
 
     # A list of optional extra params that will be passed to the remote signer container for modifying its behaviour
@@ -449,7 +449,7 @@ network_params:
   network_id: "3151908"
 
   # The address of the staking contract address
-  deposit_contract_address: "Z4242424242424242424242424242424242424242"
+  deposit_contract_address: "Q4242424242424242424242424242424242424242"
 
   # Number of seconds per slot on the Beacon chain
   seconds_per_slot: 60
@@ -479,7 +479,7 @@ network_params:
   churn_limit_quotient: 65536
 
   # Ejection balance
-  # Defaults to 16ZND
+  # Defaults to 16QRL
   # 16000000000 gplanck
   ejection_balance: 16000000000
 
@@ -522,9 +522,9 @@ network_params:
   additional_preloaded_contracts: {}
   # Example:
   # additional_preloaded_contracts: '{
-  #  "Z123463a4B065722E99115D6c222f267d9cABb524":
+  #  "Q123463a4B065722E99115D6c222f267d9cABb524":
   #   {
-  #     balance: "1ZND",
+  #     balance: "1QRL",
   #     code: "0x1234",
   #     storage: {},
   #     nonce: 0,
@@ -539,11 +539,11 @@ network_params:
   # A number of prefunded accounts to be created
   # Defaults to no prefunded accounts
   # Example:
-  # prefunded_accounts: '{"Z25941dC771bB64514Fc8abBce970307Fb9d477e9": {"balance": "10ZND"}}'
-  # 10ZND to the account Z25941dC771bB64514Fc8abBce970307Fb9d477e9
+  # prefunded_accounts: '{"Q25941dC771bB64514Fc8abBce970307Fb9d477e9": {"balance": "10QRL"}}'
+  # 10QRL to the account Q25941dC771bB64514Fc8abBce970307Fb9d477e9
   # To prefund multiple accounts, separate them with a comma
   #
-  # prefunded_accounts: '{"Z25941dC771bB64514Fc8abBce970307Fb9d477e9": {"balance": "10ZND"}, "Z4107be99052d895e3ee461C685b042Aa975ab5c0": {"balance": "1ZND"}}'
+  # prefunded_accounts: '{"Q25941dC771bB64514Fc8abBce970307Fb9d477e9": {"balance": "10QRL"}, "Q4107be99052d895e3ee461C685b042Aa975ab5c0": {"balance": "1QRL"}}'
   prefunded_accounts: {}
 
   # Maximum size of gossip messages in bytes
@@ -837,8 +837,8 @@ checkpoint_sync_url: ""
 # Transaction spammer params
 tx_spammer_params:
   # The image to use for tx spammer
-  image: theqrl/zond-tx-spammer:latest
-  # The scenario to use (see https://github.com/theQRL/zond-tx-spammer)
+  image: theqrl/qrl-tx-spammer:latest
+  # The scenario to use (see https://github.com/theQRL/qrl-tx-spammer)
   # Valid scenarios are:
   #  eoatx, zrctx, deploytx, depoy-destruct, gasburnertx
   # Defaults to eoatx
@@ -856,10 +856,10 @@ tx_spammer_params:
   # Defaults to empty
   tx_spammer_extra_args: []
 
-# Zond genesis generator params
-zond_genesis_generator_params:
-  # The image to use for zond genesis generator
-  image: qrledger/qrysm:zond-genesis-generator-latest
+# QRL genesis generator params
+qrl_genesis_generator_params:
+  # The image to use for qrl genesis generator
+  image: qrledger/qrysm:qrl-genesis-generator-latest
 
 # Global parameter to set the exit ip address of services and public ports
 port_publisher:
@@ -908,7 +908,7 @@ port_publisher:
 #### Example configurations
 
 <details>
-    <summary>A 5-node Zond network.</summary>
+    <summary>A 5-node QRL network.</summary>
 
 ```yaml
 participants:
@@ -942,41 +942,41 @@ There are 4 custom labels that can be used to identify the nodes in the network.
 Execution Layer (EL) nodes:
 
 ```sh
-  "com.kurtosistech.custom.zond-package-client": "gzond",
-  "com.kurtosistech.custom.zond-package-client-image": "theqrl-gzond-latest",
-  "com.kurtosistech.custom.zond-package-client-type": "execution",
-  "com.kurtosistech.custom.zond-package-connected-client": "qrysm",
+  "com.kurtosistech.custom.qrl-package-client": "gzond",
+  "com.kurtosistech.custom.qrl-package-client-image": "theqrl-gzond-latest",
+  "com.kurtosistech.custom.qrl-package-client-type": "execution",
+  "com.kurtosistech.custom.qrl-package-connected-client": "qrysm",
 ```
 
 Consensus Layer (CL) nodes - Beacon:
 
 ```sh
-  "com.kurtosistech.custom.zond-package-client": "qrysm",
-  "com.kurtosistech.custom.zond-package-client-image": "theqrl-qrysm-beacon-chain-latest",
-  "com.kurtosistech.custom.zond-package-client-type": "beacon",
-  "com.kurtosistech.custom.zond-package-connected-client": "gzond",
+  "com.kurtosistech.custom.qrl-package-client": "qrysm",
+  "com.kurtosistech.custom.qrl-package-client-image": "theqrl-qrysm-beacon-chain-latest",
+  "com.kurtosistech.custom.qrl-package-client-type": "beacon",
+  "com.kurtosistech.custom.qrl-package-connected-client": "gzond",
 ```
 
 Consensus Layer (CL) nodes - Validator:
 
 ```sh
-  "com.kurtosistech.custom.zond-package-client": "qrysm",
-  "com.kurtosistech.custom.zond-package-client-image": "theqrl-qrysm-validator-latest",
-  "com.kurtosistech.custom.zond-package-client-type": "validator",
-  "com.kurtosistech.custom.zond-package-connected-client": "gzond",
+  "com.kurtosistech.custom.qrl-package-client": "qrysm",
+  "com.kurtosistech.custom.qrl-package-client-image": "theqrl-qrysm-validator-latest",
+  "com.kurtosistech.custom.qrl-package-client-type": "validator",
+  "com.kurtosistech.custom.qrl-package-connected-client": "gzond",
 ```
 
-`zond-package-client` describes which client is running on the node.
-`zond-package-client-image` describes the image that is used for the client.
-`zond-package-client-type` describes the type of client that is running on the node (`execution`,`beacon` or `validator`).
-`zond-package-connected-client` describes the CL/EL client that is connected to the EL/CL client.
+`qrl-package-client` describes which client is running on the node.
+`qrl-package-client-image` describes the image that is used for the client.
+`qrl-package-client-type` describes the type of client that is running on the node (`execution`,`beacon` or `validator`).
+`qrl-package-connected-client` describes the CL/EL client that is connected to the EL/CL client.
 
 ## Proposer Builder Separation (PBS) emulation
 
-To spin up the network of Zond nodes with an external block building network (using Flashbot's `mev-boost` protocol), simply use:
+To spin up the network of QRL nodes with an external block building network (using Flashbot's `mev-boost` protocol), simply use:
 
 ```
-kurtosis run github.com/theQRL/zond-package '{"mev_type": "full"}'
+kurtosis run github.com/theQRL/qrl-package '{"mev_type": "full"}'
 ```
 
 Starting your network up with `"mev_type": "full"` will instantiate and connect the following infrastructure to your network:
@@ -1006,7 +1006,7 @@ For more details, including a guide and architecture of the `mev-boost` infrastr
 
 ## Pre-funded accounts at Genesis
 
-This package comes with [21 prefunded keys for testing](https://github.com/theQRL/zond-package/blob/main/src/prelaunch_data_generator/genesis_constants/genesis_constants.star).
+This package comes with [21 prefunded keys for testing](https://github.com/theQRL/qrl-package/blob/main/src/prelaunch_data_generator/genesis_constants/genesis_constants.star).
 
 Here's a table of where the keys are used
 

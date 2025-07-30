@@ -235,7 +235,7 @@ SUBCATEGORY_PARAMS = {
         "max_wallets",
         "tx_spammer_extra_args",
     ],
-    "zond_genesis_generator_params": [
+    "qrl_genesis_generator_params": [
         "image",
     ],
     "port_publisher": [

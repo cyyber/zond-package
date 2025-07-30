@@ -81,17 +81,17 @@ def label_maker(
 
     # Create the labels dictionary
     labels = {
-        "zond-package.client": client,
-        "zond-package.client-type": client_type,
-        "zond-package.client-image": ensure_alphanumeric_bounds(
+        "qrl-package.client": client,
+        "qrl-package.client-type": client_type,
+        "qrl-package.client-image": ensure_alphanumeric_bounds(
             image.replace("/", "-").replace(":", "_").replace(".", "-").split("@")[0]
         ),  # drop the sha256 part of the image from the label
-        "zond-package.sha256": sha256,
-        "zond-package.connected-client": connected_client,
+        "qrl-package.sha256": sha256,
+        "qrl-package.connected-client": connected_client,
     }
 
     if supernode:
-        labels["zond-package.supernode"] = str(supernode)
+        labels["qrl-package.supernode"] = str(supernode)
 
     # Add extra_labels to the labels dictionary
     labels.update(extra_labels)
