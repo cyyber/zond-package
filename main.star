@@ -59,7 +59,7 @@ tx_spammer = import_module("./src/tx_spammer/tx_spammer.star")
 
 GRAFANA_USER = "admin"
 GRAFANA_PASSWORD = "admin"
-GRAFANA_DASHBOARD_PATH_URL = "/d/QdTOwy-nz/eth2-merge-kurtosis-module-dashboard?orgId=1"
+GRAFANA_DASHBOARD_PATH_URL = "/d/QdTOwy-nz/qrl-kurtosis-module-dashboard?orgId=1"
 
 FIRST_NODE_FINALIZATION_FACT = "cl-boot-finalization-fact"
 HTTP_PORT_ID_FOR_FACT = "http"
@@ -178,15 +178,15 @@ def run(plan, args={}):
     all_cl_contexts = []
     all_vc_contexts = []
     all_remote_signer_contexts = []
-    all_ethereum_metrics_exporter_contexts = []
+    all_qrl_metrics_exporter_contexts = []
     all_xatu_sentry_contexts = []
     for participant in all_participants:
         all_el_contexts.append(participant.el_context)
         all_cl_contexts.append(participant.cl_context)
         all_vc_contexts.append(participant.vc_context)
         all_remote_signer_contexts.append(participant.remote_signer_context)
-        all_ethereum_metrics_exporter_contexts.append(
-            participant.ethereum_metrics_exporter_context
+        all_qrl_metrics_exporter_contexts.append(
+            participant.qrl_metrics_exporter_context
         )
         all_xatu_sentry_contexts.append(participant.xatu_sentry_context)
 
@@ -278,7 +278,7 @@ def run(plan, args={}):
             global_node_selectors,
         )
         epoch_recipe = GetHttpRequestRecipe(
-            endpoint="/eth/v2/beacon/blocks/head",
+            endpoint="/qrl/v2/beacon/blocks/head",
             port_id=HTTP_PORT_ID_FOR_FACT,
             extract={"epoch": ".data.message.body.attestations[0].data.target.epoch"},
         )
@@ -646,7 +646,7 @@ def run(plan, args={}):
             all_vc_contexts,
             all_remote_signer_contexts,
             prometheus_additional_metrics_jobs,
-            all_ethereum_metrics_exporter_contexts,
+            all_qrl_metrics_exporter_contexts,
             all_xatu_sentry_contexts,
             global_node_selectors,
             args_with_right_defaults.prometheus_params,

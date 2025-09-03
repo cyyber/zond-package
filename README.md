@@ -389,9 +389,9 @@ participants:
     # Default to null
     snooper_enabled: null
 
-    # Enables Ethereum Metrics Exporter for this participant. Can be set globally.
-    # Defaults null and then set to global ethereum_metrics_exporter_enabled (false)
-    ethereum_metrics_exporter_enabled: null
+    # Enables QRL Metrics Exporter for this participant. Can be set globally.
+    # Defaults null and then set to global qrl_metrics_exporter_enabled (false)
+    qrl_metrics_exporter_enabled: null
 
     # Enables Xatu Sentry for this participant. Can be set globally.
     # Defaults null and then set to global xatu_sentry_enabled (false)
@@ -480,12 +480,12 @@ network_params:
 
   # Ejection balance
   # Defaults to 16QRL
-  # 16000000000 gplanck
+  # 16000000000 shor
   ejection_balance: 16000000000
 
-  # ETH1 follow distance
+  # Execution follow distance
   # Defaults to 2048
-  eth1_follow_distance: 2048
+  execution_follow_distance: 2048
 
   # The number of epochs to wait validators to be able to withdraw
   # Defaults to 256 epochs ~27 hours
@@ -700,9 +700,9 @@ global_log_level: "info"
 # Default to false
 snooper_enabled: false
 
-# Enables Ethereum Metrics Exporter for all participants
+# Enables QRL Metrics Exporter for all participants
 # Defaults to false
-ethereum_metrics_exporter_enabled: false
+qrl_metrics_exporter_enabled: false
 
 # Parallelizes keystore generation so that each node has keystores being generated in their own container
 # This will result in a large number of containers being spun up than normal. We advise users to only enable this on a sufficiently large machine or in the cloud as it can be resource consuming on a single machine.
@@ -840,7 +840,7 @@ tx_spammer_params:
   image: theqrl/qrl-tx-spammer:latest
   # The scenario to use (see https://github.com/theQRL/qrl-tx-spammer)
   # Valid scenarios are:
-  #  eoatx, zrctx, deploytx, depoy-destruct, gasburnertx
+  #  eoatx, sqrctx, deploytx, depoy-destruct, gasburnertx
   # Defaults to eoatx
   scenario: eoatx
   # Throughput of tx spammer
@@ -930,7 +930,7 @@ participants:
 snooper_enabled: true
 additional_services:
   - prometheus_grafana
-ethereum_metrics_exporter_enabled: true
+qrl_metrics_exporter_enabled: true
 ```
 
 </details>
@@ -992,7 +992,7 @@ Starting your network up with `"mev_type": "full"` will instantiate and connect 
     <summary>Caveats when using "mev_type": "full"</summary>
 
 * Validators (64 per node by default, so 128 in the example in this guide) will get registered with the relay automatically after the 1st epoch. This registration process is simply a configuration addition to the mev-boost config - which Kurtosis will automatically take care of as part of the set up. This means that the mev-relay infrastructure only becomes aware of the existence of the validators after the 1st epoch.
-* After the 3rd epoch, the mev-relay service will begin to receive execution payloads (eth_sendPayload, which does not contain transaction content) from the mev-builder service (or mock-builder in mock-mev mode).
+* After the 3rd epoch, the mev-relay service will begin to receive execution payloads (qrl_sendPayload, which does not contain transaction content) from the mev-builder service (or mock-builder in mock-mev mode).
 * Validators will start to receive validated execution payload headers from the mev-relay service (via mev-boost) after the 4th epoch. The validator selects the most valuable header, signs the payload, and returns the signed header to the relay - effectively proposing the payload of transactions to be included in the soon-to-be-proposed block. Once the relay verifies the block proposer's signature, the relay will respond with the full execution payload body (incl. the transaction contents) for the validator to use when proposing a SignedBeaconBlock to the network.
 
 </details>

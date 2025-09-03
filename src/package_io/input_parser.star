@@ -60,7 +60,7 @@ ATTR_TO_BE_SKIPPED_AT_ROOT = (
 def input_parser(plan, input_args):
     sanity_check.sanity_check(plan, input_args)
     result = parse_network_params(plan, input_args)
-    # add default eth2 input params
+    # add default qrl input params
     result["blockscout_params"] = get_default_blockscout_params()
     result["dora_params"] = get_default_dora_params()
     result["docker_cache_params"] = get_default_docker_cache_params()
@@ -104,7 +104,7 @@ def input_parser(plan, input_args):
         # if its inserted we use the value inserted
         if attr not in ATTR_TO_BE_SKIPPED_AT_ROOT and attr in input_args:
             result[attr] = value
-        # custom eth2 attributes config
+        # custom qrl attributes config
         elif attr == "blockscout_params":
             for sub_attr in input_args["blockscout_params"]:
                 sub_value = input_args["blockscout_params"][sub_attr]
@@ -243,8 +243,8 @@ def input_parser(plan, input_args):
                 node_selectors=participant["node_selectors"],
                 snooper_enabled=participant["snooper_enabled"],
                 count=participant["count"],
-                ethereum_metrics_exporter_enabled=participant[
-                    "ethereum_metrics_exporter_enabled"
+                qrl_metrics_exporter_enabled=participant[
+                    "qrl_metrics_exporter_enabled"
                 ],
                 xatu_sentry_enabled=participant["xatu_sentry_enabled"],
                 prometheus_config=struct(
@@ -277,7 +277,7 @@ def input_parser(plan, input_args):
             ],
             churn_limit_quotient=result["network_params"]["churn_limit_quotient"],
             ejection_balance=result["network_params"]["ejection_balance"],
-            eth1_follow_distance=result["network_params"]["eth1_follow_distance"],
+            execution_follow_distance=result["network_params"]["execution_follow_distance"],
             network=result["network_params"]["network"],
             min_validator_withdrawability_delay=result["network_params"][
                 "min_validator_withdrawability_delay"
@@ -390,7 +390,7 @@ def input_parser(plan, input_args):
         global_log_level=result["global_log_level"],
         mev_type=result["mev_type"],
         snooper_enabled=result["snooper_enabled"],
-        ethereum_metrics_exporter_enabled=result["ethereum_metrics_exporter_enabled"],
+        qrl_metrics_exporter_enabled=result["qrl_metrics_exporter_enabled"],
         xatu_sentry_enabled=result["xatu_sentry_enabled"],
         parallel_keystore_generation=result["parallel_keystore_generation"],
         disable_peer_scoring=result["disable_peer_scoring"],
@@ -571,12 +571,12 @@ def parse_network_params(plan, input_args):
         if keymanager_enabled == None:
             participant["keymanager_enabled"] = result["keymanager_enabled"]
 
-        ethereum_metrics_exporter_enabled = participant[
-            "ethereum_metrics_exporter_enabled"
+        qrl_metrics_exporter_enabled = participant[
+            "qrl_metrics_exporter_enabled"
         ]
-        if ethereum_metrics_exporter_enabled == None:
-            participant["ethereum_metrics_exporter_enabled"] = result[
-                "ethereum_metrics_exporter_enabled"
+        if qrl_metrics_exporter_enabled == None:
+            participant["qrl_metrics_exporter_enabled"] = result[
+                "qrl_metrics_exporter_enabled"
             ]
 
         xatu_sentry_enabled = participant["xatu_sentry_enabled"]
@@ -727,7 +727,7 @@ def default_input_args(input_args):
         "wait_for_finalization": False,
         "global_log_level": "info",
         "snooper_enabled": False,
-        "ethereum_metrics_exporter_enabled": False,
+        "qrl_metrics_exporter_enabled": False,
         "parallel_keystore_generation": False,
         "disable_peer_scoring": False,
         "persistent": False,
@@ -763,7 +763,7 @@ def default_network_params():
         "max_per_epoch_activation_churn_limit": 8,
         "churn_limit_quotient": 65536,
         "ejection_balance": 16000000000,
-        "eth1_follow_distance": 2048,
+        "execution_follow_distance": 2048,
         "min_validator_withdrawability_delay": 256,
         "shard_committee_period": 256,
         "network_sync_base_url": "https://snapshots.theqrl.org/",
@@ -792,7 +792,7 @@ def default_minimal_network_params():
         "max_per_epoch_activation_churn_limit": 4,
         "churn_limit_quotient": 32,
         "ejection_balance": 16000000000,
-        "eth1_follow_distance": 16,
+        "execution_follow_distance": 16,
         "min_validator_withdrawability_delay": 256,
         "shard_committee_period": 64,
         "network_sync_base_url": "https://snapshots.theqrl.org/",
@@ -862,7 +862,7 @@ def default_participant():
         "tolerations": [],
         "count": 1,
         "snooper_enabled": None,
-        "ethereum_metrics_exporter_enabled": None,
+        "qrl_metrics_exporter_enabled": None,
         "xatu_sentry_enabled": None,
         "prometheus_config": {
             "scrape_interval": "15s",

@@ -85,7 +85,7 @@ def new_env_file_for_el_cl_genesis_data(
         "MaxPerEpochActivationChurnLimit": network_params.max_per_epoch_activation_churn_limit,
         "ChurnLimitQuotient": network_params.churn_limit_quotient,
         "EjectionBalance": network_params.ejection_balance,
-        "Eth1FollowDistance": network_params.eth1_follow_distance,
+        "ExecutionFollowDistance": network_params.execution_follow_distance,
         "GenesisForkVersion": constants.GENESIS_FORK_VERSION,
         "ShadowForkFile": shadowfork_file,
         "MinValidatorWithdrawabilityDelay": network_params.min_validator_withdrawability_delay,
