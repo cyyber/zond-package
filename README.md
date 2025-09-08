@@ -659,7 +659,7 @@ assertoor_params:
   run_transaction_test: false
 
   # Run all-opcodes transaction test
-  # This test generates a transaction that triggers all EVM OPCODES once
+  # This test generates a transaction that triggers all QRVM OPCODES once
   # This test checks for:
   # - all-opcodes transaction success
   run_opcodes_transaction_test: false
