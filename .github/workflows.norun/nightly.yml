@@ -73,7 +73,7 @@ jobs:
         uses: ethpandaops/kurtosis-assertoor-github-action@v1
         with:
           kurtosis_extra_args: "--image-download always --non-blocking-tasks --verbosity DETAILED"
-          zond_package_branch: ""
-          zond_package_args: .github/tests/mix-assert.yaml
-          zond_package_url: "$GITHUB_WORKSPACE"
+          qrl_package_branch: ""
+          qrl_package_args: .github/tests/mix-assert.yaml
+          qrl_package_url: "$GITHUB_WORKSPACE"
           persistent_logs: "true"

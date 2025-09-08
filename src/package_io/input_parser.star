@@ -147,10 +147,10 @@ def input_parser(plan, input_args):
             for sub_attr in input_args["tx_spammer_params"]:
                 sub_value = input_args["tx_spammer_params"][sub_attr]
                 result["tx_spammer_params"][sub_attr] = sub_value
-        elif attr == "zond_genesis_generator_params":
-            for sub_attr in input_args["zond_genesis_generator_params"]:
-                sub_value = input_args["zond_genesis_generator_params"][sub_attr]
-                result["zond_genesis_generator_params"][sub_attr] = sub_value
+        elif attr == "qrl_genesis_generator_params":
+            for sub_attr in input_args["qrl_genesis_generator_params"]:
+                sub_value = input_args["qrl_genesis_generator_params"][sub_attr]
+                result["qrl_genesis_generator_params"][sub_attr] = sub_value
 
     if result.get("disable_peer_scoring"):
         result = enrich_disable_peer_scoring(result)
@@ -407,7 +407,7 @@ def input_parser(plan, input_args):
         keymanager_enabled=result["keymanager_enabled"],
         checkpoint_sync_enabled=result["checkpoint_sync_enabled"],
         checkpoint_sync_url=result["checkpoint_sync_url"],
-        zond_genesis_generator_params=struct(
+        qrl_genesis_generator_params=struct(
             image=result["qrl_genesis_generator_params"]["image"],
         ),
         port_publisher=struct(

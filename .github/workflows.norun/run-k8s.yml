@@ -43,9 +43,9 @@ jobs:
           kubernetes_config: "${{ steps.kubeconfig.outputs.kubeconfig }}"
           kubernetes_cluster: "minikube"
           kubernetes_storage_class: "standard"
-          zond_package_branch: ""
-          zond_package_args: "${{ matrix.payload.file }}"
-          zond_package_url: "$GITHUB_WORKSPACE"
+          qrl_package_branch: ""
+          qrl_package_args: "${{ matrix.payload.file }}"
+          qrl_package_url: "$GITHUB_WORKSPACE"
           enclave_name: "qrl-package-${{ matrix.payload.name }}-${{ github.run_id }}"
           persistent_logs: "true"
 

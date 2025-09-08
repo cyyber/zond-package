@@ -66,7 +66,7 @@ def launch_participant_network(
         # We are running a kurtosis or shadowfork network
         (
             total_number_of_validator_keys,
-            zond_genesis_generator_image,
+            qrl_genesis_generator_image,
             final_genesis_timestamp,
             validator_data,
             clef_data,
@@ -81,7 +81,7 @@ def launch_participant_network(
 
         el_cl_data = el_cl_genesis_data_generator.generate_el_cl_genesis_data(
             plan,
-            zond_genesis_generator_image,
+            qrl_genesis_generator_image,
             el_cl_genesis_config_template,
             final_genesis_timestamp,
             network_params,
