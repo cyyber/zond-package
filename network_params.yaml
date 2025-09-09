@@ -1,23 +1,181 @@
 participants:
+# EL
   - el_type: gzond
-    el_image: qrledger/go-zond
+    el_image: qrledger/go-zond:stable
+    el_log_level: ""
+    el_extra_env_vars: {}
+    el_extra_labels: {}
+    el_extra_params: []
+    el_tolerations: []
+    el_volume_size: 0
+    el_min_cpu: 0
+    el_max_cpu: 0
+    el_min_mem: 0
+    el_max_mem: 0
+# CL
     cl_type: qrysm
-    cl_image: qrledger/qrysm-beacon
+    cl_image: qrledger/qrysm:beacon-chain-latest
+    cl_log_level: ""
+    cl_extra_env_vars: {}
+    cl_extra_labels: {}
+    cl_extra_params: []
+    cl_tolerations: []
+    cl_volume_size: 0
+    cl_min_cpu: 0
+    cl_max_cpu: 0
+    cl_min_mem: 0
+    cl_max_mem: 0
+    supernode: false
+    use_separate_vc: true
+# Validator
     vc_type: qrysm
-    vc_image: qrledger/qrysm-validator
+    vc_image: qrledger/qrysm:validator-latest
+    vc_log_level: ""
+    vc_extra_env_vars: {}
+    vc_extra_labels: {}
+    vc_extra_params: []
+    vc_tolerations: []
+    vc_min_cpu: 0
+    vc_max_cpu: 0
+    vc_min_mem: 0
+    vc_max_mem: 0
+    validator_count: null
+    use_remote_signer: false
+# Remote signer
+    remote_signer_type: clef
+    remote_signer_image: qrledger/go-zond:alltools-stable
+    remote_signer_extra_env_vars: {}
+    remote_signer_extra_labels: {}
+    remote_signer_extra_params: []
+    remote_signer_tolerations: []
+    remote_signer_min_cpu: 0
+    remote_signer_max_cpu: 0
+    remote_signer_min_mem: 0
+    remote_signer_max_mem: 0
+# participant specific
+    node_selectors: {}
+    tolerations: []
     count: 2
+    snooper_enabled: false
+    qrl_metrics_exporter_enabled: false
+    xatu_sentry_enabled: false
+    prometheus_config:
+      scrape_interval: 15s
+      labels: {}
+    builder_network_params: null
+    keymanager_enabled: false
 network_params:
-  preset: "mainnet"
-  prefunded_accounts: '{"Q25941dC771bB64514Fc8abBce970307Fb9d477e9": {"balance": "10QRL"}, "Q4107be99052d895e3ee461C685b042Aa975ab5c0": {"balance": "1QRL"}, "Q2099d76d9a34cdd2694c4dc703930a6fbbc1d402": {"balance": "2000000QRL"}, "Q2018DcfF6a42061E4203d3b8cbF48E9B890Cbdf2": {"balance": "2000000QRL"}}'
-
-additional_services:
-  -  tx_spammer
-# - full_beaconchain_explorer
-
-tx_spammer_params:
-  image: theqrl/qrl-tx-spammer:latest
-  scenario: eoatx
-  throughput: 100
-  max_pending: 100
-  max_wallets: 50
-  tx_spammer_extra_args: []
+  network: kurtosis
+  network_id: "3151908"
+  deposit_contract_address: "Q4242424242424242424242424242424242424242"
+  seconds_per_slot: 60
+  num_validator_keys_per_node: 64
+  preregistered_validator_keys_mnemonic:
+    "veto waiter rail aroma aunt chess fiend than sahara unwary punk
+    dawn belong agent sane reefy loyal from judas clean paste rho
+    madam poor pay convoy duty circa hybrid circus exempt splash"
+  preregistered_validator_count: 0
+  genesis_delay: 20
+  genesis_gaslimit: 30000000
+  max_per_epoch_activation_churn_limit: 8
+  churn_limit_quotient: 65536
+  ejection_balance: 16000000000
+  execution_follow_distance: 2048
+  min_validator_withdrawability_delay: 256
+  shard_committee_period: 256
+  network_sync_base_url: https://snapshots.theqrl.org/
+  data_column_sidecar_subnet_count: 128
+  samples_per_slot: 8
+  custody_requirement: 4
+  additional_preloaded_contracts: {}
+  devnet_repo: theqrl
+  prefunded_accounts: {}
+additional_services: []
+dora_params:
+  image: ""
+prometheus_params:
+  storage_tsdb_retention_time: "1d"
+  storage_tsdb_retention_size: "512MB"
+  min_cpu: 10
+  max_cpu: 1000
+  min_mem: 128
+  max_mem: 2048
+grafana_params:
+  additional_dashboards: []
+  min_cpu: 10
+  max_cpu: 1000
+  min_mem: 128
+  max_mem: 2048
+assertoor_params:
+  image: ""
+  run_stability_check: false
+  run_block_proposal_check: false
+  run_transaction_test: false
+  run_opcodes_transaction_test: false
+  run_lifecycle_test: false
+  tests: []
+wait_for_finalization: false
+global_log_level: info
+snooper_enabled: false
+qrl_metrics_exporter_enabled: false
+parallel_keystore_generation: false
+disable_peer_scoring: false
+persistent: false
+mev_type: null
+mev_params:
+  mev_relay_image: flashbots/mev-boost-relay
+  mev_builder_image: ethpandaops/flashbots-builder:main
+  # mev_builder_cl_image: sigp/lighthouse:latest
+  mev_boost_image: flashbots/mev-boost
+  mev_boost_args: ["mev-boost", "--relay-check"]
+  mev_relay_api_extra_args: []
+  mev_relay_housekeeper_extra_args: []
+  mev_relay_website_extra_args: []
+  mev_builder_extra_args: []
+  mev_builder_prometheus_config:
+    scrape_interval: 15s
+    labels: {}
+  mev_flood_image: flashbots/mev-flood
+  mev_flood_extra_args: []
+  mev_flood_seconds_per_bundle: 15
+  custom_flood_params:
+    interval_between_transactions: 1
+xatu_sentry_enabled: false
+xatu_sentry_params:
+  xatu_sentry_image: ethpandaops/xatu-sentry
+  xatu_server_addr: localhost:8000
+  xatu_server_tls: false
+  xatu_server_headers: {}
+  beacon_subscriptions:
+    - attestation
+    - block
+    - chain_reorg
+    - finalized_checkpoint
+    - head
+    - voluntary_exit
+    - contribution_and_proof
+apache_port: 40000
+global_tolerations: []
+global_node_selectors: {}
+keymanager_enabled: false
+checkpoint_sync_enabled: false
+checkpoint_sync_url: ""
+qrl_genesis_generator_params:
+  image: qrledger/qrysm:qrl-genesis-generator-latest
+port_publisher:
+  nat_exit_ip: KURTOSIS_IP_ADDR_PLACEHOLDER
+  el:
+    enabled: false
+    public_port_start: 32000
+  cl:
+    enabled: false
+    public_port_start: 33000
+  vc:
+    enabled: false
+    public_port_start: 34000
+  remote_signer:
+    enabled: false
+    public_port_start: 35000
+  additional_services:
+    enabled: false
+    public_port_start: 36000
