@@ -145,6 +145,7 @@ SUBCATEGORY_PARAMS = {
         "preregistered_validator_count",
         "genesis_delay",
         "genesis_gaslimit",
+        "light_kdf_enabled",
         "max_per_epoch_activation_churn_limit",
         "churn_limit_quotient",
         "ejection_balance",

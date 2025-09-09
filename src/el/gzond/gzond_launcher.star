@@ -236,6 +236,11 @@ def get_config(
             "--signer=" + launcher.remote_signer_context.http_url
         )
 
+    if launcher.light_kdf_enabled:
+        cmd.append(
+            "--lightkdf"
+        )
+
     if len(participant.el_extra_params) > 0:
         # this is a repeated<proto type>, we convert it into Starlark
         cmd.extend([param for param in participant.el_extra_params])
@@ -302,6 +307,7 @@ def new_gzond_launcher(
     network,
     networkid,
     remote_signer_context,
+    light_kdf_enabled,
 ):
     return struct(
         el_cl_genesis_data=el_cl_genesis_data,
@@ -309,4 +315,5 @@ def new_gzond_launcher(
         network=network,
         networkid=networkid,
         remote_signer_context=remote_signer_context,
+        light_kdf_enabled=light_kdf_enabled,
     )

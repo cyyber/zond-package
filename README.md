@@ -470,6 +470,10 @@ network_params:
   # The gas limit of the network set at genesis
   genesis_gaslimit: 30000000
 
+  # Reduce key-derivation RAM & CPU usage at some expense of KDF strength
+  # Defaults to false
+  light_kdf_enabled: false
+
   # Max churn rate for the network
   # Defaults to 8
   max_per_epoch_activation_churn_limit: 8

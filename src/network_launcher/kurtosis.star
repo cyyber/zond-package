@@ -35,6 +35,7 @@ def launch(
             network_params.preregistered_validator_keys_mnemonic,
             args_with_right_defaults.participants,
             args_with_right_defaults.docker_cache_params,
+            network_params.light_kdf_enabled,
         )
     else:
         validator_data = validator_keystores.generate_validator_keystores_in_parallel(
